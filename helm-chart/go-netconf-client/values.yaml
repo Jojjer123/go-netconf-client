@@ -1,0 +1,29 @@
+nameOverride: "go-netconf-client"
+fullnameOverride: "go-netconf-client"
+
+replicaCount: 1
+annotations: {}
+
+image:
+  repository: go-netconf-client
+  tag: v0.0.1
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+
+resources:
+  requests:
+    cpu: 0.5
+    memory: 512Mi
+
+service:
+  type: ClusterIP
+
+ports:
+  gnmi:
+    secure: 10161
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

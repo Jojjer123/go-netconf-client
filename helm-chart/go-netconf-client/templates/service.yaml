@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "go-netconf-client.fullname" . }}
+  labels:
+    app: {{ template "go-netconf-client.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    {{- include "go-netconf-client.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    name: {{ template "go-netconf-client.fullname" . }}
+  ports:
+    {{- range $key, $port := .Values.ports.gnmi }}
+    - name: gnmi{{ $key }}
+      port: {{ $port }}
+    {{- end}}
